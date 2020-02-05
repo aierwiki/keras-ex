@@ -9,8 +9,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="keras-ex",
-    version="0.0.1",
+    name="keras_ex",
+    version="0.0.2",
     author="Tang Yubin",
     author_email="tang-yu-bin@qq.com",
     description="self defined functions for keras",
