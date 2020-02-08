@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="keras_ex",
-    version="0.0.2",
+    version="0.0.3",
     author="Tang Yubin",
     author_email="tang-yu-bin@qq.com",
     description="self defined functions for keras",
