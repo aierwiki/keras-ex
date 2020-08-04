@@ -113,7 +113,7 @@ class Resnet1DBuilder(object):
         pool = AveragePooling1D(pool_size=block_shape[1], strides=1)(block)
         flatten = Flatten()(pool)
         if num_outputs == 2:
-            dense = Dense(units=num_outputs, kernel_initializer="he_normal",
+            dense = Dense(units=1, kernel_initializer="he_normal",
                         activation="sigmoid")(flatten)
         else:
             dense = Dense(units=num_outputs, kernel_initializer="he_normal",
