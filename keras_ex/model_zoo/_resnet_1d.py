@@ -20,7 +20,7 @@ from keras import backend as K
 def _bn_relu(inputs):
     """Helper to build a BN -> relu block
     """
-    norm = BatchNormalization(axis=1)(inputs)
+    norm = BatchNormalization(axis=2)(inputs)
     return Activation("relu")(norm)
     
 def _bn_relu_conv(**conv_params):
@@ -54,7 +54,7 @@ def _shortcut(inputs, residual):
         shortcut = Conv1D(filters=residual_shape[2],
                         kernel_size=1, strides=1, padding="same",
                         kernel_initializer="he_normal",
-                        kernel_regularizer=l2(1.-4))(inputs)
+                        kernel_regularizer=l2(1.e-4))(inputs)
     return add([shortcut, residual])
     
 def bottleneck(filters, init_strides=1):
@@ -112,7 +112,11 @@ class Resnet1DBuilder(object):
         block_shape = K.int_shape(block)
         pool = AveragePooling1D(pool_size=block_shape[1], strides=1)(block)
         flatten = Flatten()(pool)
-        dense = Dense(units=num_outputs, kernel_initializer="he_normal",
+        if num_outputs == 2:
+            dense = Dense(units=num_outputs, kernel_initializer="he_normal",
+                        activation="sigmoid")(flatten)
+        else:
+            dense = Dense(units=num_outputs, kernel_initializer="he_normal",
                         activation="softmax")(flatten)
         model = Model(inputs=inputs, outputs=dense)
         return model
