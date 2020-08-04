@@ -124,7 +124,6 @@ class Resnet1DBuilder(object):
 def test():
     X = np.random.random((1000, 100, 4))
     y = np.random.randint(0, 2, size=1000)
-    y = np.eye(2)[y]
     resnet = Resnet1DBuilder.build((100, 4), 2, [2, 2, 2, 2])
     resnet.compile(loss='binary_crossentropy', optimizer='rmsprop')
     resnet.fit(X, y)
